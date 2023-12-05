@@ -1,0 +1,44 @@
+import * as React from "react";
+import { useState } from "react";
+import { View, StyleSheet } from "react-native";
+import { Button, Snackbar } from "react-native-paper";
+
+interface Props {
+  message: string;
+  info: string;
+  visible: boolean;
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const MyComponent = ({ message, info, visible, setVisible }: Props) => {
+  const onToggleSnackBar = () => setVisible(!visible);
+
+  const onDismissSnackBar = () => setVisible(false);
+
+  return (
+    <View style={styles.container}>
+      <Button onPress={onToggleSnackBar}>{visible ? "Hide" : "Show"}</Button>
+      <Snackbar
+        visible={visible}
+        onDismiss={onDismissSnackBar}
+        action={{
+          label: message,
+          onPress: () => {
+            // Do something
+          },
+        }}
+      >
+        {info}
+      </Snackbar>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "space-between",
+  },
+});
+
+export default MyComponent;
